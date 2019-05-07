@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-game-of-life';
+  columns = 10;
+  rows = 10;
 }

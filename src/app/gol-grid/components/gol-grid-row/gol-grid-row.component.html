@@ -1,0 +1,4 @@
+<div class="row-wrapper">
+  <app-gol-grid-cell *ngFor="let cell of cells; let index = index"
+                     [toggled]="cell" (cellClick)="cellClicked(index)"></app-gol-grid-cell>
+</div>
