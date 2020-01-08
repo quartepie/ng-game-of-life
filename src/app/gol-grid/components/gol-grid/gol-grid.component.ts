@@ -26,6 +26,7 @@ export class GolGridComponent implements OnInit {
 
   fieldScheme$: Observable<boolean[][]> = this.stateService.fieldState$;
   generations$: Observable<number> = this.stateService.generations$;
+  drawState$: Observable<boolean> = this.stateService.drawState$;
 
   constructor(private stateService: GridStateService) { }
 
@@ -48,5 +49,17 @@ export class GolGridComponent implements OnInit {
 
   toggleCell(rowIndex: number, colIndex: number) {
     this.stateService.toggleCell(rowIndex, colIndex);
+  }
+
+  trackByFn(index, item) {
+    return index;
+  }
+
+  drawStart(startValue) {
+    this.stateService.startDraw(startValue);
+  }
+
+  drawEnd() {
+    this.stateService.endDraw();
   }
 }

@@ -8,14 +8,19 @@ import { takeUntil, tap } from 'rxjs/operators';
 })
 export class GridStateService {
 
-  fieldState: BehaviorSubject<boolean[][]> = new BehaviorSubject([[]]);
-  fieldState$: Observable<boolean[][]> = this.fieldState.asObservable();
-  generations$ = new BehaviorSubject(0);
+  private fieldState: BehaviorSubject<boolean[][]> = new BehaviorSubject([[]]);
   private stopper = new Subject();
   private config = {
     rows: 1,
     columns: 1
   };
+  private drawState = new BehaviorSubject(false);
+  private valueToSet = false;
+  private inProgress = false;
+
+  fieldState$: Observable<boolean[][]> = this.fieldState.asObservable();
+  generations$ = new BehaviorSubject(0);
+  drawState$ = this.drawState.asObservable();
 
   constructor() { }
 
@@ -33,26 +38,32 @@ export class GridStateService {
     return Array.apply(null, Array(length));
   }
 
-  toggleCell(rowIndex: number, colIndex: number) {
-    const currentState = this.fieldState.value;
-    if (currentState[rowIndex]) {
-      currentState[rowIndex][colIndex] = !currentState[rowIndex][colIndex];
-      this.fieldState.next(currentState);
+  toggleCell(rowIndex: number, colIndex: number, value?: boolean) {
+    if (!this.inProgress) {
+      const currentState = this.fieldState.value;
+      if (currentState[rowIndex]) {
+        currentState[rowIndex][colIndex] = this.valueToSet;
+        this.fieldState.next(currentState);
+      }
     }
   }
 
   startGame() {
+    this.inProgress = true;
     interval(100)
       .pipe(tap(() => this.generations$.next(this.generations$.value + 1)), takeUntil(this.stopper))
       .subscribe(() => this.evolveGrid());
   }
 
   pauseGame() {
+    this.inProgress = false;
     this.stopper.next();
   }
 
   resetField() {
-    this.generateNewField(this.config.columns, this.config.rows);
+    if (!this.inProgress) {
+      this.generateNewField(this.config.columns, this.config.rows);
+    }
   }
 
   evolveGrid() {
@@ -84,4 +95,12 @@ export class GridStateService {
     return neighbors.length || 0;
   }
 
+  startDraw(value) {
+    this.drawState.next(true);
+    this.valueToSet = value;
+  }
+
+  endDraw() {
+    this.drawState.next(false);
+  }
 }
