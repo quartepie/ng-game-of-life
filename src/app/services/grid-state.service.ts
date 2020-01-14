@@ -16,7 +16,7 @@ export class GridStateService {
   };
   private drawState = new BehaviorSubject(false);
   private valueToSet = false;
-  private inProgress = false;
+  inProgress = false;
 
   fieldState$: Observable<boolean[][]> = this.fieldState.asObservable();
   generations$ = new BehaviorSubject(0);
@@ -46,6 +46,10 @@ export class GridStateService {
         this.fieldState.next(currentState);
       }
     }
+  }
+
+  getStateSnapshot() {
+    return this.fieldState.value;
   }
 
   startGame() {

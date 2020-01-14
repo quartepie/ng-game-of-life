@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { GridStateService } from '../../services/grid-state.service';
+import { GridStateService } from '../../../services/grid-state.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-gol-grid',
   templateUrl: './gol-grid.component.html',
   styleUrls: ['./gol-grid.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GolGridComponent implements OnInit {
 
@@ -31,20 +31,6 @@ export class GolGridComponent implements OnInit {
   constructor(private stateService: GridStateService) { }
 
   ngOnInit() {
-  }
-
-  start() {
-    this.inProgress = true;
-    this.stateService.startGame();
-  }
-
-  pause() {
-    this.inProgress = false;
-    this.stateService.pauseGame();
-  }
-
-  reset() {
-    this.stateService.resetField();
   }
 
   toggleCell(rowIndex: number, colIndex: number) {
