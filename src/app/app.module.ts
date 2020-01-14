@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { GolGridModule } from './gol-grid/gol-grid.module';
 import { FormsModule } from '@angular/forms';
+import { GolGridCanvasModule } from './gol-grid-canvas/gol-grid-canvas.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule,
     GolGridModule,
+    GolGridCanvasModule
   ],
   providers: [],
   bootstrap: [AppComponent]

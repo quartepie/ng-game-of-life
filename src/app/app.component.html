@@ -1,10 +1,29 @@
 <div class="control-wrapper">
   Columns: {{ columns }}
-  <input type="range" id="columns" max="30" [(ngModel)]="columns">
+  <input type="range" id="columns" min="2" max="40" [(ngModel)]="columns">
 </div>
 <div class="control-wrapper">
   Columns: {{ rows }}
-  <input type="range" id="rows" max="30" [(ngModel)]="rows">
+  <input type="range" id="rows" min="2" max="40" [(ngModel)]="rows">
 </div>
-<app-gol-grid [colCount]="columns" [rowCount]="rows"></app-gol-grid>
+<div class="control-wrapper">
+  <button (click)="start()" [disabled]="inProgress">Start</button>
+  <button (click)="pause()">Pause</button>
+  <button (click)="reset()" [disabled]="inProgress">Reset</button>
+</div>
+<div class="control-wrapper">
+  Generations: {{ generations$ | async }}
+</div>
+<div class="field-wrapper">
+  <div class="field">
+    <h3>A lot of DIVs</h3>
+    <app-gol-grid [colCount]="columns" [rowCount]="rows"></app-gol-grid>
+  </div>
+  <div class="field">
+    <h3>Canvas</h3>
+    <app-canvas-grid [colCount]="columns" [rowCount]="rows"></app-canvas-grid>
+  </div>
+</div>
+
+
 

@@ -1,11 +1,5 @@
-<div class="count-wrapper">
-  Generations: {{ generations$ | async }}
-</div>
 <div class="grid-wrapper">
   <app-gol-grid-row *ngFor="let row of fieldScheme$ | async; let index = index; trackBy: trackByFn"
                     [cells]="row" [rowIndex]="index" (cellClick)="toggleCell(index, $event)" [editable]="drawState$ | async"
                     (drawEnd)="drawEnd()" (drawStart)="drawStart($event)"></app-gol-grid-row>
 </div>
-<button (click)="start()" [disabled]="inProgress">Start</button>
-<button (click)="pause()">Pause</button>
-<button (click)="reset()" [disabled]="inProgress">Reset</button>

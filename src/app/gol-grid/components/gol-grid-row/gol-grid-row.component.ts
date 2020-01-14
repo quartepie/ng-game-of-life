@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   selector: 'app-gol-grid-row',
   templateUrl: './gol-grid-row.component.html',
   styleUrls: ['./gol-grid-row.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GolGridRowComponent implements OnInit {
 
